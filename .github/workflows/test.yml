@@ -14,9 +14,6 @@ jobs:
       image-name: some-org/some-image
       push: false
       dockerfile: Dockerfile-python
-    secrets:
-      DOCKERHUB_USERNAME: "none"
-      DOCKERHUB_TOKEN: "none"
 
   build-and-push:
     uses: steeven9/CICD-template/.github/workflows/docker-build.yml@main

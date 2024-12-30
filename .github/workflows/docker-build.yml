@@ -21,9 +21,9 @@ on:
         description: "Whether to ping the webhook for deployment or not (optional)"
     secrets:
       DOCKERHUB_USERNAME:
-        required: true
+        required: false
       DOCKERHUB_TOKEN:
-        required: true
+        required: false
       WEBHOOK_URL:
         required: false
 
