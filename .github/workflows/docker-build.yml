@@ -43,10 +43,6 @@ jobs:
           file: ${{ inputs.dockerfile }}
           push: ${{ inputs.push }}
           tags: ${{ inputs.image-name }}
-
-  update-image:
-    runs-on: ubuntu-latest
-    if: ${{ inputs.ping_webhook }}
-    steps:
       - name: Notify webhook
+        if: ${{ inputs.ping_webhook }}
         run: curl -X POST ${{ secrets.webhook_url }}
