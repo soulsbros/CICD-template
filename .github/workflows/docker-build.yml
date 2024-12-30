@@ -15,11 +15,17 @@ on:
         type: string
         default: "Dockerfile"
         description: "The name of the Dockerfile (optional)"
+      ping_webhook:
+        type: boolean
+        default: false
+        description: "Whether to ping the webhook for deployment or not (optional)"
     secrets:
       DOCKERHUB_USERNAME:
         required: true
       DOCKERHUB_TOKEN:
         required: true
+      WEBHOOK_URL:
+        required: false
 
 jobs:
   docker:
@@ -37,3 +43,10 @@ jobs:
           file: ${{ inputs.dockerfile }}
           push: ${{ inputs.push }}
           tags: ${{ inputs.image-name }}
+
+  update-image:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.ping_webhook }}
+    steps:
+      - name: Notify webhook
+        run: curl -X POST ${{ secrets.webhook_url }}

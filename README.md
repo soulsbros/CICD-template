@@ -6,25 +6,42 @@ Shared template for GitHub Actions
 
 ## Usage
 
-Just add this to `.github/workflows/your-workflow.yml`:
+For example, to build on all branches and tags, add this to `.github/workflows/your-workflow.yml`:
 
 ```yaml
 name: your-workflow
 
 on:
   push:
-    branches: [main]
+    branches:
+      - "*"
+    tags:
+      - "*"
 
 jobs:
-  build-and-push:
+  build-tags:
+    # Build and push the image with the tag name
     uses: steeven9/CICD-template/.github/workflows/docker-build.yml@main
+    if: github.ref_type == 'tag'
     with:
-      image-name: some-org/some-image # adapt to yours
+      image-name: some-org/some-image:${{ github.ref_name }}  # TODO adapt to your needs
       push: true
     secrets:
-      # only required if you want to push to Docker Hub
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  build-branches:
+    # Build all branches but push only in main
+    uses: steeven9/CICD-template/.github/workflows/docker-build.yml@main
+    if: github.ref_type == 'branch'
+    with:
+      image-name: some-org/some-image:latest  # TODO adapt to your needs
+      push: ${{ github.ref_name == 'main' }}
+      ping_webhook: ${{ github.ref_name == 'main' }}
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
 ```
 
 You can also override the Dockerfile location with the `dockerfile` input.
