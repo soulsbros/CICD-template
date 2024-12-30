@@ -17,6 +17,7 @@ jobs:
     secrets:
       DOCKERHUB_USERNAME: "none"
       DOCKERHUB_TOKEN: "none"
+
   build-and-push:
     uses: steeven9/CICD-template/.github/workflows/docker-build.yml@main
     with:
@@ -26,3 +27,15 @@ jobs:
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  build-and-push-and-ping:
+    uses: steeven9/CICD-template/.github/workflows/docker-build.yml@main
+    with:
+      image-name: steeven9/test
+      push: true
+      dockerfile: Dockerfile-python
+      ping_webhook: true
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
