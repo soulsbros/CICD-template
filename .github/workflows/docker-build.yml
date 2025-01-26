@@ -6,7 +6,7 @@ on:
       image-name:
         required: true
         type: string
-        description: "The full name of the image (including user)"
+        description: "The full name of the image"
       push:
         required: true
         type: boolean
@@ -19,6 +19,10 @@ on:
         type: boolean
         default: false
         description: "Whether to ping the webhook for deployment or not (optional)"
+      runner:
+        type: string
+        default: ubuntu-latest
+        description: "The type of runner to use (optional)"
     secrets:
       DOCKERHUB_USERNAME:
         required: false
@@ -29,7 +33,7 @@ on:
 
 jobs:
   docker:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runner }}
     steps:
       - name: Login to DockerHub
         uses: docker/login-action@v3.3.0
