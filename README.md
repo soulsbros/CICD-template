@@ -1,6 +1,6 @@
 # CICD-template
 
-![Test workflow](https://github.com/steeven9/CICD-template/actions/workflows/test.yml/badge.svg)
+![Test workflow](https://github.com/soulsbros/CICD-template/actions/workflows/test.yml/badge.svg)
 
 Shared template for GitHub Actions
 

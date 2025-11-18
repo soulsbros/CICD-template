@@ -9,14 +9,14 @@ on:
 
 jobs:
   build-only:
-    uses: steeven9/CICD-template/.github/workflows/docker-build.yml@main
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@main
     with:
       image-name: some-org/some-image
       push: false
       dockerfile: Dockerfile-python
 
   build-and-push:
-    uses: steeven9/CICD-template/.github/workflows/docker-build.yml@main
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@main
     with:
       image-name: steeven9/test
       push: true
@@ -26,7 +26,7 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   build-and-push-and-ping:
-    uses: steeven9/CICD-template/.github/workflows/docker-build.yml@main
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@main
     with:
       image-name: steeven9/test
       push: true
