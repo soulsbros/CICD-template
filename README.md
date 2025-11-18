@@ -21,7 +21,7 @@ on:
 jobs:
   build-tags:
     # Build and push the image with the tag name
-    uses: steeven9/CICD-template/.github/workflows/docker-build.yml@main
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@main
     if: github.ref_type == 'tag'
     with:
       image-name: some-org/some-image:${{ github.ref_name }}  # TODO adapt to your needs
@@ -32,7 +32,7 @@ jobs:
 
   build-branches:
     # Build all branches but push only in main
-    uses: steeven9/CICD-template/.github/workflows/docker-build.yml@main
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@main
     if: github.ref_type == 'branch'
     with:
       image-name: some-org/some-image:latest  # TODO adapt to your needs
