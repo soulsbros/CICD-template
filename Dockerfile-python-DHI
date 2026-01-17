@@ -1,6 +1,6 @@
 # https://hub.docker.com/hardened-images/catalog/dhi/python
 
-FROM dhi.io/python:3
+FROM dhi.io/python:3-dev
 
 WORKDIR /usr/src/app
 
