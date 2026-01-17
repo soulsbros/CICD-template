@@ -12,6 +12,7 @@ For example, to build on all branches and tags, add this to `.github/workflows/y
 name: your-workflow
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - "*"

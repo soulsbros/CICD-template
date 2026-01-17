@@ -18,16 +18,16 @@ on:
       ping_webhook:
         type: boolean
         default: false
-        description: "Whether to ping the webhook for deployment or not (optional)"
+        description: "Whether to ping the webhook for deployment or not (optional, default false)"
       runner:
         type: string
         default: ubuntu-latest
         description: "The type of runner to use (optional)"
     secrets:
       DOCKERHUB_USERNAME:
-        required: false
+        required: true
       DOCKERHUB_TOKEN:
-        required: false
+        required: true
       WEBHOOK_URL:
         required: false
 
@@ -36,13 +36,18 @@ jobs:
     runs-on: ${{ inputs.runner }}
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v3.3.0
-        if: ${{ inputs.push }}
+        uses: docker/login-action@v3.6.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to DHI
+        uses: docker/login-action@v3.6.0
+        with:
+          registry: dhi.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v6.7.0
+        uses: docker/build-push-action@v6.18.0
         with:
           file: ${{ inputs.dockerfile }}
           push: ${{ inputs.push }}
