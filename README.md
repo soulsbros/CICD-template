@@ -22,7 +22,7 @@ on:
 jobs:
   build-tags:
     # Build and push the image with the tag name
-    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@main
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@2f687755dff9b7110e952f1d3eb2f31ccd0ec308 # 1.1.1
     if: github.ref_type == 'tag'
     with:
       image-name: some-org/some-image:${{ github.ref_name }}  # TODO adapt to your needs
@@ -33,12 +33,27 @@ jobs:
 
   build-branches:
     # Build all branches but push only in main
-    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@main
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@2f687755dff9b7110e952f1d3eb2f31ccd0ec308 # 1.1.1
     if: github.ref_type == 'branch'
     with:
       image-name: some-org/some-image:latest  # TODO adapt to your needs
       push: ${{ github.ref_name == 'main' }}
       ping_webhook: ${{ github.ref_name == 'main' }}
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+  
+  # Optional: also build arm64 image on native hardware
+  build-branches-arm:
+    # Build all branches but push only in main (no ping)
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@2f687755dff9b7110e952f1d3eb2f31ccd0ec308 # 1.1.1
+    if: github.ref_type == 'branch'
+    with:
+      image-name: some-org/some-image:arm  # TODO adapt to your needs
+      push: ${{ github.ref_name == 'main' }}
+      ping_webhook: false
+      runner: ubuntu-26.04-arm
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

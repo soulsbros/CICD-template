@@ -54,4 +54,4 @@ jobs:
           tags: ${{ inputs.image-name }}
       - name: Notify webhook
         if: ${{ inputs.ping_webhook }}
-        run: curl -X POST ${{ secrets.webhook_url }}
+        run: curl -X POST ${{ secrets.WEBHOOK_URL }}
