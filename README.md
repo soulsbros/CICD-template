@@ -69,7 +69,7 @@ jobs:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 ```
 
-You can also override the Dockerfile location with the `dockerfile` input.
+You can also override the Dockerfile location with the `dockerfile` input, or the type of runner used.
 
 ## Resources
 
@@ -78,6 +78,12 @@ You can also override the Dockerfile location with the `dockerfile` input.
 <https://github.com/docker/login-action>
 
 <https://github.com/docker/build-push-action>
+
+<https://github.com/actions/checkout>
+
+<https://github.com/SonarSource/sonarqube-scan-action>
+
+<https://github.com/SonarSource/sonarqube-quality-gate-action>
 
 ### Documentation
 
