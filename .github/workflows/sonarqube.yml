@@ -1,0 +1,32 @@
+name: Sonarqube workflow
+
+on:
+  workflow_call:
+    inputs:
+      host-url:
+        type: string
+        default: https://code.soulsbros.ch
+        description: "Path of the Sonarqube instance (optional)"
+      runner:
+        type: string
+        default: ubuntu-latest
+        description: "The type of runner to use (optional)"
+    secrets:
+      SONAR_TOKEN:
+        required: true
+
+jobs:
+  sonarqube:
+    runs-on: ${{ inputs.runner }}
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
+        with:
+          fetch-depth: 0
+      - uses: SonarSource/sonarqube-scan-action@713881670b6b3676cda39549040e2d88c70d582e # 8.2.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ inputs.host-url }}
+      - uses: SonarSource/sonarqube-quality-gate-action@cf038b0e0cdecfa9e56c198bbb7d21d751d62c3b # 1.2.0
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
