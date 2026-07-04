@@ -1,6 +1,6 @@
 name: Test
 
-# This is only testing the Action
+# This is only testing the build Action
 # DO NOT COPY THIS FILE
 
 on:

@@ -22,7 +22,7 @@ on:
 jobs:
   build-tags:
     # Build and push the image with the tag name
-    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@2f687755dff9b7110e952f1d3eb2f31ccd0ec308 # 1.1.1
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@62acc93e4f4dbfe09b3ae2f94e8e5f46ff5573ad # 1.1.2
     if: github.ref_type == 'tag'
     with:
       image-name: some-org/some-image:${{ github.ref_name }}  # TODO adapt to your needs
@@ -33,7 +33,7 @@ jobs:
 
   build-branches:
     # Build all branches but push only in main
-    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@2f687755dff9b7110e952f1d3eb2f31ccd0ec308 # 1.1.1
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@62acc93e4f4dbfe09b3ae2f94e8e5f46ff5573ad # 1.1.2
     if: github.ref_type == 'branch'
     with:
       image-name: some-org/some-image:latest  # TODO adapt to your needs
@@ -47,7 +47,7 @@ jobs:
   # Optional: also build arm64 image on native hardware
   build-branches-arm:
     # Build all branches but push only in main (no ping)
-    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@2f687755dff9b7110e952f1d3eb2f31ccd0ec308 # 1.1.1
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@62acc93e4f4dbfe09b3ae2f94e8e5f46ff5573ad # 1.1.2
     if: github.ref_type == 'branch'
     with:
       image-name: some-org/some-image:arm  # TODO adapt to your needs
@@ -58,6 +58,15 @@ jobs:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+  
+  # Optional: code roasting
+  sonarqube:
+    uses: soulsbros/CICD-template/.github/workflows/sonarqube.yml@62acc93e4f4dbfe09b3ae2f94e8e5f46ff5573ad # 1.1.2
+    if: github.ref_name == 'main'
+    with:
+      host-url: https://my-sonar-instance.domain.com  # TODO adapt to your needs
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 ```
 
 You can also override the Dockerfile location with the `dockerfile` input.
