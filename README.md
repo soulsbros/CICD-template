@@ -20,9 +20,12 @@ on:
       - "*"
 
 jobs:
+  lint:
+    uses: soulsbros/CICD-template/.github/workflows/node.yml@158288970a760999c5e7736080e51e6fb55c29a8 # 1.1.3
+
   build-tags:
     # Build and push the image with the tag name
-    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@62acc93e4f4dbfe09b3ae2f94e8e5f46ff5573ad # 1.1.2
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@158288970a760999c5e7736080e51e6fb55c29a8 # 1.1.3
     if: github.ref_type == 'tag'
     with:
       image-name: some-org/some-image:${{ github.ref_name }}  # TODO adapt to your needs
@@ -33,7 +36,7 @@ jobs:
 
   build-branches:
     # Build all branches but push only in main
-    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@62acc93e4f4dbfe09b3ae2f94e8e5f46ff5573ad # 1.1.2
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@158288970a760999c5e7736080e51e6fb55c29a8 # 1.1.3
     if: github.ref_type == 'branch'
     with:
       image-name: some-org/some-image:latest  # TODO adapt to your needs
@@ -47,7 +50,7 @@ jobs:
   # Optional: also build arm64 image on native hardware
   build-branches-arm:
     # Build all branches but push only in main (no ping)
-    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@62acc93e4f4dbfe09b3ae2f94e8e5f46ff5573ad # 1.1.2
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@158288970a760999c5e7736080e51e6fb55c29a8 # 1.1.3
     if: github.ref_type == 'branch'
     with:
       image-name: some-org/some-image:arm  # TODO adapt to your needs
@@ -61,7 +64,7 @@ jobs:
   
   # Optional: code roasting
   sonarqube:
-    uses: soulsbros/CICD-template/.github/workflows/sonarqube.yml@62acc93e4f4dbfe09b3ae2f94e8e5f46ff5573ad # 1.1.2
+    uses: soulsbros/CICD-template/.github/workflows/sonarqube.yml@158288970a760999c5e7736080e51e6fb55c29a8 # 1.1.3
     if: github.ref_name == 'main'
     with:
       host-url: https://my-sonar-instance.domain.com  # TODO adapt to your needs
@@ -84,6 +87,8 @@ You can also override the Dockerfile location with the `dockerfile` input, or th
 <https://github.com/SonarSource/sonarqube-scan-action>
 
 <https://github.com/SonarSource/sonarqube-quality-gate-action>
+
+<https://github.com/SocketDev/action>
 
 ### Documentation
 
