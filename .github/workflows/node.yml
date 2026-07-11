@@ -1,0 +1,31 @@
+name: Node.js workflow
+
+on:
+  workflow_call:
+    inputs:
+      runner:
+        type: string
+        default: ubuntu-latest
+        description: "The type of runner to use (optional)"
+
+jobs:
+  install:
+    runs-on: ${{ inputs.runner }}
+    outputs:
+      executable: ${{ steps.find_executable.outputs.executable }}
+    steps:
+      - id: find_executable
+        name: Find executable
+        run:
+          if [ -f package-lock.json ]; then echo "executable=npm" >> "$GITHUB_OUTPUT"; \
+          else if [ -f yarn.lock ]; then echo "executable=yarn" >> "$GITHUB_OUTPUT"; \
+          else if [ -f bun.lockb ]; then echo "executable=bun" >> "$GITHUB_OUTPUT"; \
+          else echo "Not a Node.js repo, exiting."; exit 1;
+          fi
+      - name: Install dependencies
+        run: ${{ steps.find_executable.outputs.executable }} install
+      - name: Run linter
+        run: ${{ steps.find_executable.outputs.executable }} run lint
+      - name: Audit dependencies
+        continue-on-error: true
+        run: ${{ steps.find_executable.outputs.executable }} audit
