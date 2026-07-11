@@ -18,8 +18,8 @@ jobs:
         name: Find executable
         run:
           if [ -f package-lock.json ]; then echo "executable=npm" >> "$GITHUB_OUTPUT"; \
-          else if [ -f yarn.lock ]; then echo "executable=yarn" >> "$GITHUB_OUTPUT"; \
-          else if [ -f bun.lockb ]; then echo "executable=bun" >> "$GITHUB_OUTPUT"; \
+          elif [ -f yarn.lock ]; then echo "executable=yarn" >> "$GITHUB_OUTPUT"; \
+          elif [ -f bun.lockb ]; then echo "executable=bun" >> "$GITHUB_OUTPUT"; \
           else echo "Not a Node.js repo, exiting."; exit 1;
           fi
       - name: Install dependencies
