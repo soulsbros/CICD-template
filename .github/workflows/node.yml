@@ -9,7 +9,7 @@ on:
         description: "The type of runner to use (optional)"
 
 jobs:
-  install:
+  install-and-lint:
     runs-on: ${{ inputs.runner }}
     outputs:
       executable: ${{ steps.find_executable.outputs.executable }}

@@ -32,7 +32,7 @@ on:
         required: false
 
 jobs:
-  docker:
+  build-and-push:
     runs-on: ${{ inputs.runner }}
     steps:
       - name: Login to DockerHub
