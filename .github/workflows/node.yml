@@ -14,7 +14,7 @@ jobs:
     outputs:
       executable: ${{ steps.find_executable.outputs.executable }}
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # 7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # 7.0.1
       - id: find_executable
         name: Find executable
         run: |
@@ -28,7 +28,7 @@ jobs:
             echo "Not a Node.js repo, exiting."
             exit 1
           fi
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # 6.4.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # 7.0.0
         with:
           node-version-file: package.json
       - uses: SocketDev/action@ba6de6cc0565af1f42295590380973573297e31f # v1.3.2
