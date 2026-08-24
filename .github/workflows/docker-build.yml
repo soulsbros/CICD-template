@@ -54,4 +54,11 @@ jobs:
           tags: ${{ inputs.image-name }}
       - name: Notify webhook
         if: ${{ inputs.ping_webhook }}
-        run: curl -X POST ${{ secrets.WEBHOOK_URL }}
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "WEBHOOK_URL secret is not configured; skipping webhook notification."
+            exit 0
+          fi
+          curl --fail-with-body --show-error -X POST "$WEBHOOK_URL"
