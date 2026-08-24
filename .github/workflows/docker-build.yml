@@ -58,7 +58,7 @@ jobs:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
           if [ -z "$WEBHOOK_URL" ]; then
-            echo "WEBHOOK_URL secret is not configured; skipping webhook notification."
-            exit 0
+            echo "WEBHOOK_URL secret is not configured!"
+            exit 1
           fi
           curl --fail-with-body --show-error -X POST "$WEBHOOK_URL"
