@@ -61,3 +61,8 @@ jobs:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+
+  empty-sonar:
+    uses: soulsbros/CICD-template/.github/workflows/sonarqube.yml@main
+    secrets:
+      SONAR_TOKEN: asdasdasd
