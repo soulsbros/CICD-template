@@ -21,11 +21,11 @@ on:
 
 jobs:
   lint:
-    uses: soulsbros/CICD-template/.github/workflows/node.yml@d8b2e86a1351ff09063464cb3b63725313b6029e # 1.1.4
+    uses: soulsbros/CICD-template/.github/workflows/node.yml@d789e02e09c758f955692c7d83e81c6e3b3b9958 # 1.1.5
 
   build-tags:
     # Build and push the image with the tag name
-    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@d8b2e86a1351ff09063464cb3b63725313b6029e # 1.1.4
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@d789e02e09c758f955692c7d83e81c6e3b3b9958 # 1.1.5
     if: github.ref_type == 'tag'
     with:
       image-name: some-org/some-image:${{ github.ref_name }}  # TODO adapt to your needs
@@ -36,7 +36,7 @@ jobs:
 
   build-branches:
     # Build all branches but push only in main
-    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@d8b2e86a1351ff09063464cb3b63725313b6029e # 1.1.4
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@d789e02e09c758f955692c7d83e81c6e3b3b9958 # 1.1.5
     if: github.ref_type == 'branch'
     with:
       image-name: some-org/some-image:latest  # TODO adapt to your needs
@@ -50,7 +50,7 @@ jobs:
   # Optional: also build arm64 image on native hardware
   build-branches-arm:
     # Build all branches but push only in main (no ping)
-    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@d8b2e86a1351ff09063464cb3b63725313b6029e # 1.1.4
+    uses: soulsbros/CICD-template/.github/workflows/docker-build.yml@d789e02e09c758f955692c7d83e81c6e3b3b9958 # 1.1.5
     if: github.ref_type == 'branch'
     with:
       image-name: some-org/some-image:arm  # TODO adapt to your needs
@@ -64,7 +64,7 @@ jobs:
   
   # Optional: code roasting
   sonarqube:
-    uses: soulsbros/CICD-template/.github/workflows/sonarqube.yml@d8b2e86a1351ff09063464cb3b63725313b6029e # 1.1.4
+    uses: soulsbros/CICD-template/.github/workflows/sonarqube.yml@d789e02e09c758f955692c7d83e81c6e3b3b9958 # 1.1.5
     if: github.ref_name == 'main'
     with:
       host-url: https://my-sonar-instance.domain.com  # TODO adapt to your needs
